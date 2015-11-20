@@ -41,7 +41,6 @@
 #include <QtWidgets>
 #include <QtNetwork>
 
-#include "sensorvalue.h"
 #include "receiver.h"
 
 Receiver::Receiver(QWidget *parent)
@@ -86,8 +85,15 @@ void Receiver::processPendingDatagrams()
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size());
         sensorvalues.processDatagram(datagram);
-        //statusLabel->setText(tr("Received datagram: \"%1\"")
-        //                     .arg(datagram.data()));
+
+        // Debuggin
+        SensorValue s = sensorvalues.getOldest();
+        int i = s.getAccelerometer();
+        printf("%d",i);
+
+
+        statusLabel->setText(tr("Received datagram: \"%1\"")
+                             .arg(datagram.data()));
     }
 //! [2]
 }
