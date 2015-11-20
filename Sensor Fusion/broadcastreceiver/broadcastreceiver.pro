@@ -7,7 +7,3 @@ SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \
     sensorvalue.cpp
-# install
-target.path = $$[QT_INSTALL_EXAMPLES]/network/broadcastreceiver
-INSTALLS += target
-
