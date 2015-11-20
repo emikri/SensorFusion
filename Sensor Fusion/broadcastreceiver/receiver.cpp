@@ -41,6 +41,7 @@
 #include <QtWidgets>
 #include <QtNetwork>
 
+#include "sensorvalue.h"
 #include "receiver.h"
 
 Receiver::Receiver(QWidget *parent)
