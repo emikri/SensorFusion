@@ -42,6 +42,7 @@
 #define RECEIVER_H
 
 #include <QWidget>
+#include "sensorvalues.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -64,6 +65,7 @@ private:
     QLabel *statusLabel;
     QPushButton *quitButton;
     QUdpSocket *udpSocket;
+    SensorValues sensorvalues;
 };
 
 #endif

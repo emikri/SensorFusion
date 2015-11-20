@@ -51,6 +51,8 @@ Receiver::Receiver(QWidget *parent)
 
     quitButton = new QPushButton(tr("&Quit"));
 
+    SensorValues sensorValues;
+
 //! [0]
     udpSocket = new QUdpSocket(this);
     udpSocket->bind(5555, QUdpSocket::ShareAddress);
@@ -82,8 +84,9 @@ void Receiver::processPendingDatagrams()
         QByteArray datagram;
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size());
-        statusLabel->setText(tr("Received datagram: \"%1\"")
-                             .arg(datagram.data()));
+        sensorvalues.processDatagram(datagram);
+        //statusLabel->setText(tr("Received datagram: \"%1\"")
+        //                     .arg(datagram.data()));
     }
 //! [2]
 }
