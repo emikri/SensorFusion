@@ -34,9 +34,6 @@ void SensorValues::processDatagram(QByteArray datagram){
         }
         sensorValues.append(sensorValue);
     }
-
-    printf("Value %f, %f, %f",*sensorValue.getSensorValues();
-
 }
 
 SensorValue SensorValues::getOldest(){
