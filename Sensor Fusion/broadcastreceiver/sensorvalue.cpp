@@ -1,27 +1,27 @@
 #include "sensorvalue.h"
 
-float accelerometerX,
-    accelerometerY,
-    accelerometerZ;
+float sensorValueX,
+    sensorValueY,
+    sensorValueZ;
 
 SensorValue::SensorValue()
 {
-    accelerometerX = 0;
-    accelerometerY = 0;
-    accelerometerZ = 0;
+    sensorValueX = 0;
+    sensorValueY = 0;
+    sensorValueZ = 0;
 }
 
-float* SensorValue::getAccelerometer()
+float* SensorValue::getSensorValues()
 {
     static float out[3];
-    out[0] = accelerometerX;
-    out[1] = accelerometerY;
-    out[2] = accelerometerZ;
+    out[0] = sensorValueX;
+    out[1] = sensorValueY;
+    out[2] = sensorValueZ;
     return out;
 }
 
-void SensorValue::setAccelerometer(float accelerometerX,float accelerometerY,float accelerometerZ){
-    this->accelerometerX = accelerometerX;
-    this->accelerometerY = accelerometerY;
-    this->accelerometerZ = accelerometerZ;
+void SensorValue::setSensorValues(float sensorValueX,float sensorValueY,float sensorValueZ){
+    this->sensorValueX = sensorValueX;
+    this->sensorValueY = sensorValueY;
+    this->sensorValueZ = sensorValueZ;
 }

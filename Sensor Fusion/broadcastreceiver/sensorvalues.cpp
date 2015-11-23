@@ -25,7 +25,7 @@ void SensorValues::processDatagram(QByteArray datagram){
 
     if(datagramArray.contains(comp)) {
         int index = datagramArray.indexOf(comp);
-        sensorValue.setAccelerometer(datagramArray[index+1].toFloat(),
+        sensorValue.setSensorValues(datagramArray[index+1].toFloat(),
                                      datagramArray[index+2].toFloat(),
                                      datagramArray[index+3].toFloat());
     }
