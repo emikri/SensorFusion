@@ -3,6 +3,7 @@
 #define SENSORVALUES_H
 
 #include <QObject>
+#include "sensorvalue.h"
 
 class SensorValues : public QObject
 {
@@ -10,9 +11,10 @@ class SensorValues : public QObject
 public:
     explicit SensorValues(QObject *parent = 0);
     void processDatagram(QByteArray datagram);
+    SensorValue getOldest();
 
 private:
-    QByteArray datagram;
+    QList<SensorValue> sensorValues;
 
 signals:
 

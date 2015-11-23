@@ -40,7 +40,6 @@
 
 #include <QtNetwork>
 
-#include "sensorvalue.h"
 #include "receiver.h"
 
 Receiver::Receiver(QObject *parent)
@@ -67,6 +66,11 @@ void Receiver::processPendingDatagrams()
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size());
         sensorvalues.processDatagram(datagram);
-    }
+
+        // Debugging
+        SensorValue s = sensorvalues.getOldest();
+        int i = s.getAccelerometer();
+        printf("%d",i);
+   }
 //! [2]
 }
