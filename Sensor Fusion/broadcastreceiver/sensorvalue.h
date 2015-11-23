@@ -6,10 +6,13 @@
 class SensorValue
 {
 public:
-    int getAccelerometer();
+    float* getAccelerometer();
+    void setAccelerometer(float,float,float);
     SensorValue();
 private:
-    int accelerometer;
+    float accelerometerX,
+        accelerometerY,
+        accelerometerZ;
 };
 
 #endif // SENSORVALUE_H
