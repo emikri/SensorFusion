@@ -5,14 +5,17 @@
 
 class SensorValue
 {
+
 public:
     float* getSensorValues();
     void setSensorValues(float,float,float);
+    void setSensorType(int);
     SensorValue();
 private:
     float sensorValueX,
         sensorValueY,
         sensorValueZ;
+    int sensorType;
 };
 
 #endif // SENSORVALUE_H

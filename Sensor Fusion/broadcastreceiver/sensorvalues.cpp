@@ -24,6 +24,7 @@ void SensorValues::processDatagram(QByteArray datagram){
     QString comp = "3";
 
     if(datagramArray.contains(comp)) {
+        sensorValue.setSensorType(3);
         int index = datagramArray.indexOf(comp);
         sensorValue.setSensorValues(datagramArray[index+1].toFloat(),
                                      datagramArray[index+2].toFloat(),

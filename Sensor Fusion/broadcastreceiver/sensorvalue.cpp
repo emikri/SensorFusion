@@ -1,5 +1,9 @@
 #include "sensorvalue.h"
 
+
+enum SensorType {Accelerometer = 3, Gyrometer = 4, Magnetometer = 5};
+
+int sensorType;
 float sensorValueX,
     sensorValueY,
     sensorValueZ;
@@ -9,6 +13,10 @@ SensorValue::SensorValue()
     sensorValueX = 0;
     sensorValueY = 0;
     sensorValueZ = 0;
+}
+
+void SensorValue::setSensorType(int sensorType){
+    this->sensorType = sensorType;
 }
 
 float* SensorValue::getSensorValues()
