@@ -21,17 +21,22 @@ void SensorValues::processDatagram(QByteArray datagram){
 
     qDebug() << datagramArray;
 
-    QString comp = "3";
+    QString comp;
 
-    if(datagramArray.contains(comp)) {
-        sensorValue.setSensorType(3);
-        int index = datagramArray.indexOf(comp);
-        sensorValue.setSensorValues(datagramArray[index+1].toFloat(),
-                                     datagramArray[index+2].toFloat(),
-                                     datagramArray[index+3].toFloat());
+    for(int i=3; i<=5; i++) {
+        QString comp = QString::number(i);
+        if(datagramArray.contains(comp)) {
+            sensorValue.setSensorType(i);
+            int index = datagramArray.indexOf(comp);
+            sensorValue.setSensorValues(datagramArray[index+1].toFloat(),
+                                         datagramArray[index+2].toFloat(),
+                                         datagramArray[index+3].toFloat());
+        }
+        sensorValues.append(sensorValue);
     }
 
-    sensorValues.append(sensorValue);
+    printf("Value %f, %f, %f",*sensorValue.getSensorValues();
+
 }
 
 SensorValue SensorValues::getOldest(){
