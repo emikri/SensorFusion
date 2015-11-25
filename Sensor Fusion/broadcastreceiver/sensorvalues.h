@@ -3,7 +3,6 @@
 #define SENSORVALUES_H
 
 #include <QObject>
-#include "sensorvalue.h"
 #include "sensor.h"
 
 class SensorValues : public QObject
@@ -16,7 +15,6 @@ public:
     Sensor getOldest(SensorType t);
 
 private:
-    QList<SensorValue> sensorValues;
 
 signals:
 

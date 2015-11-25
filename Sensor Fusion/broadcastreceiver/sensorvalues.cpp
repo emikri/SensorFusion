@@ -1,5 +1,4 @@
 #include "sensorvalues.h"
-#include "sensorvalue.h"
 #include <QList>
 #include <QString>
 #include <QStringList>
@@ -7,8 +6,6 @@
 #include "sensor.h"
 
 
-// Array of SensorValue
-QList<SensorValue> sensorValues;
 QList<Sensor> sensors;
 
 
