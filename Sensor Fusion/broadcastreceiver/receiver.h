@@ -41,26 +41,29 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <QObject>
-#include "sensorvalues.h"
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
+class QLabel;
+class QPushButton;
 class QUdpSocket;
+class QAction;
 QT_END_NAMESPACE
 
-class Receiver : public QObject
+class Receiver : public QWidget
 {
     Q_OBJECT
 
 public:
-    Receiver(QObject *parent = 0);
+    Receiver(QWidget *parent = 0);
 
 private slots:
     void processPendingDatagrams();
 
 private:
+    QLabel *statusLabel;
+    QPushButton *quitButton;
     QUdpSocket *udpSocket;
-    SensorValues sensorvalues;
 };
 
 #endif

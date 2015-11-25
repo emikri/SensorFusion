@@ -38,14 +38,18 @@
 **
 ****************************************************************************/
 
+#include <QtWidgets>
 #include <QtNetwork>
 
 #include "receiver.h"
 
-Receiver::Receiver(QObject *parent)
-    : QObject(parent)
+Receiver::Receiver(QWidget *parent)
+    : QWidget(parent)
 {
-    SensorValues sensorValues;
+    statusLabel = new QLabel(tr("Listening for broadcasted messages"));
+    statusLabel->setWordWrap(true);
+
+    quitButton = new QPushButton(tr("&Quit"));
 
 //! [0]
     udpSocket = new QUdpSocket(this);
@@ -56,6 +60,19 @@ Receiver::Receiver(QObject *parent)
     connect(udpSocket, SIGNAL(readyRead()),
             this, SLOT(processPendingDatagrams()));
 //! [1]
+    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    buttonLayout->addStretch(1);
+    buttonLayout->addWidget(quitButton);
+    buttonLayout->addStretch(1);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(statusLabel);
+    mainLayout->addLayout(buttonLayout);
+    setLayout(mainLayout);
+
+    setWindowTitle(tr("Broadcast Receiver"));
 }
 
 void Receiver::processPendingDatagrams()
@@ -65,7 +82,8 @@ void Receiver::processPendingDatagrams()
         QByteArray datagram;
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size());
-        sensorvalues.processDatagram(datagram);
+        statusLabel->setText(tr("Received datagram: \"%1\"")
+                             .arg(datagram.data()));
     }
 //! [2]
 }
