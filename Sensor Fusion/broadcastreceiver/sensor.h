@@ -8,17 +8,15 @@ enum SensorType {Accelerometer = 3, Gyrometer = 4, Magnetometer = 5};
 class Sensor
 {
 public:
+    SensorType sensorType;
+    Sensor();
+    Sensor(SensorType t);
+    float* getSensorValues();
+    void setSensorValues(float,float,float);
+private:
     float sensorValueX;
     float sensorValueY;
     float sensorValueZ;
-    SensorType sType;
-    QList<QString> sensorHistory;
-
-public:
-    Sensor();
-    Sensor(float x, float y, float z, SensorType t);
-    void PopulateHistory();
-    Sensor ReadOldest(bool old = true);
 };
 
 #endif // SENSOR_H

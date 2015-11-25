@@ -11,8 +11,6 @@ class SensorValues : public QObject
 public:
     explicit SensorValues(QObject *parent = 0);
     void processDatagram(QByteArray datagram);
-    //SensorValue getOldest();
-    Sensor getOldest(SensorType t);
 
 private:
 
