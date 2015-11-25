@@ -9,15 +9,12 @@ QList<Sensor> sensors;
 
 SensorValues::SensorValues(QObject *parent) : QObject(parent)
 {
-    if(sensors.isEmpty()){
-        Sensor acc(Accelerometer);
-        Sensor gyr(Gyrometer);
-        Sensor mag(Magnetometer);
-        sensors.append(acc);
-        sensors.append(gyr);
-        sensors.append(mag);
-
-    }
+    Sensor acc(Accelerometer);
+    Sensor gyr(Gyrometer);
+    Sensor mag(Magnetometer);
+    sensors.append(acc);
+    sensors.append(gyr);
+    sensors.append(mag);
 }
 
 void SensorValues::processDatagram(QByteArray datagram){
