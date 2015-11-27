@@ -42,10 +42,10 @@
 
 #include "receiver.h"
 
-Receiver::Receiver(QObject *parent)
+Receiver::Receiver(SensorValues sv, QObject *parent)
     : QObject(parent)
 {
-    SensorValues sensorValues;
+    sensorValues = sv;
 
 //! [0]
     udpSocket = new QUdpSocket(this);
@@ -65,7 +65,7 @@ void Receiver::processPendingDatagrams()
         QByteArray datagram;
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size());
-        sensorvalues.processDatagram(datagram);
+        sensorValues.processDatagram(datagram);
     }
 //! [2]
 }
