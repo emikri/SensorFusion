@@ -2,8 +2,10 @@ QT += network widgets
 
 HEADERS       = receiver.h \
     sensorvalues.h \
-    sensor.h
+    sensor.h \
+    MadgwickAHRS.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \
-    sensor.cpp
+    sensor.cpp \
+    MadgwickAHRS.c
