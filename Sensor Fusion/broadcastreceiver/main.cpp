@@ -39,11 +39,21 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <qdebug.h>
 
 #include "receiver.h"
+#include "madgwickahrscplusplus.h"
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "Starting";
+    printf("Starting program\n");
+    printf("Testing filter\n");
+
+    MadgwickAHRScplusplus mad;
+    mad.MadgwickAHRSupdate(0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f);
+    qDebug() << mad.q0;
+
     QApplication app(argc, argv);
     Receiver receiver;
     return app.exec();
