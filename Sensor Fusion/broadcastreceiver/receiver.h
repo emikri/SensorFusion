@@ -53,7 +53,7 @@ class Receiver : public QObject
     Q_OBJECT
 
 public:
-    Receiver(SensorValues sv, QObject *parent = 0);
+    Receiver(SensorValues &sv, QObject *parent = 0);
 
 private slots:
     void processPendingDatagrams();

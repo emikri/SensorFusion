@@ -10,7 +10,7 @@ class SensorValues
 public:
     SensorValues();
     void processDatagram(QByteArray datagram);
-
+    QList<Sensor> getSensors();
 private:
 };
 
