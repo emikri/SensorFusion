@@ -5,18 +5,13 @@
 #include <QObject>
 #include "sensor.h"
 
-class SensorValues : public QObject
+class SensorValues
 {
-    Q_OBJECT
 public:
-    explicit SensorValues(QObject *parent = 0);
+    SensorValues();
     void processDatagram(QByteArray datagram);
 
 private:
-
-signals:
-
-public slots:
 };
 
 #endif // SENSORVALUES_H

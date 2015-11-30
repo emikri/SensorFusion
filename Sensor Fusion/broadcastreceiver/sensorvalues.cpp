@@ -4,10 +4,9 @@
 #include <QStringList>
 #include "sensor.h"
 
-
 QList<Sensor> sensors;
 
-SensorValues::SensorValues(QObject *parent) : QObject(parent)
+SensorValues::SensorValues()
 {
     Sensor acc(Accelerometer);
     Sensor gyr(Gyrometer);
