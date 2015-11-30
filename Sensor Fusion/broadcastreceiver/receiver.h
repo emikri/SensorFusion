@@ -60,7 +60,7 @@ private slots:
 
 private:
     QUdpSocket *udpSocket;
-    SensorValues sensorValues;
+    SensorValues& sensorValues;
 };
 
 #endif

@@ -43,10 +43,8 @@
 #include "receiver.h"
 
 Receiver::Receiver(SensorValues &sv, QObject *parent)
-    : QObject(parent)
+    : QObject(parent), sensorValues(sv)
 {
-    sensorValues = sv;
-
 //! [0]
     udpSocket = new QUdpSocket(this);
     udpSocket->bind(5555, QUdpSocket::ShareAddress);
@@ -55,6 +53,7 @@ Receiver::Receiver(SensorValues &sv, QObject *parent)
 //! [1]
     connect(udpSocket, SIGNAL(readyRead()),
             this, SLOT(processPendingDatagrams()));
+
 //! [1]
 }
 
