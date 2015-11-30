@@ -41,11 +41,12 @@
 #include <QApplication>
 
 #include "receiver.h"
+#include "sensorvalues.h"
 
 int main(int argc, char *argv[])
 {
+    SensorValues sv;
     QApplication app(argc, argv);
-    Receiver receiver;
-    receiver.show();
+    Receiver receiver(sv);
     return app.exec();
 }

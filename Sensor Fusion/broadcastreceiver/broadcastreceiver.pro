@@ -1,10 +1,9 @@
 QT += network widgets
 
-HEADERS       = receiver.h
+HEADERS       = receiver.h \
+    sensorvalues.h \
+    sensor.h
 SOURCES       = receiver.cpp \
-                main.cpp
-
-# install
-target.path = $$[QT_INSTALL_EXAMPLES]/network/broadcastreceiver
-INSTALLS += target
-
+                main.cpp \
+    sensorvalues.cpp \
+    sensor.cpp
