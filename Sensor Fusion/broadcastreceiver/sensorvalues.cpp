@@ -36,3 +36,9 @@ void SensorValues::processDatagram(QByteArray datagram){
         }
     }
 }
+
+
+QList<Sensor> SensorValues::getSensors(){
+
+    return sensors;
+}
