@@ -3,22 +3,15 @@
 #define SENSORVALUES_H
 
 #include <QObject>
-#include "sensorvalue.h"
+#include "sensor.h"
 
-class SensorValues : public QObject
+class SensorValues
 {
-    Q_OBJECT
 public:
-    explicit SensorValues(QObject *parent = 0);
+    SensorValues();
     void processDatagram(QByteArray datagram);
-    SensorValue getOldest();
 
 private:
-    QList<SensorValue> sensorValues;
-
-signals:
-
-public slots:
 };
 
 #endif // SENSORVALUES_H

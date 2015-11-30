@@ -1,38 +1,38 @@
 #include "sensorvalues.h"
-#include "sensorvalue.h"
 #include <QList>
 #include <QString>
 #include <QStringList>
-#include <QDebug>
+#include "sensor.h"
 
-// Array of SensorValue
-QList<SensorValue> sensorValues;
+QList<Sensor> sensors;
 
-SensorValues::SensorValues(QObject *parent) : QObject(parent)
+SensorValues::SensorValues()
 {
-
+    Sensor acc(Accelerometer);
+    Sensor gyr(Gyrometer);
+    Sensor mag(Magnetometer);
+    sensors.append(acc);
+    sensors.append(gyr);
+    sensors.append(mag);
 }
 
 void SensorValues::processDatagram(QByteArray datagram){
-    SensorValue sensorValue;
     QString sDatagram = datagram.data();
     sDatagram = sDatagram.remove(" ");
     QStringList datagramArray = sDatagram.split(",");
 
-    qDebug() << datagramArray;
-
-    QString comp = "3";
-
-    if(datagramArray.contains(comp)) {
-        int index = datagramArray.indexOf(comp);
-        sensorValue.setAccelerometer(datagramArray[index+1].toFloat(),
-                                     datagramArray[index+2].toFloat(),
-                                     datagramArray[index+3].toFloat());
+    QString comp;
+    for(int i=3; i<=5; i++) {
+        comp = QString::number(i);
+        if(datagramArray.contains(comp)) {
+            int index = datagramArray.indexOf(comp);
+            for (int j = 0 ; j < sensors.size(); j++){
+                if(sensors[j].sensorType == i){
+                    sensors[j].setSensorValues(datagramArray[index+1].toFloat(),
+                                                 datagramArray[index+2].toFloat(),
+                                                 datagramArray[index+3].toFloat());
+                }
+            }
+        }
     }
-
-    sensorValues.append(sensorValue);
-}
-
-SensorValue SensorValues::getOldest(){
-    return sensorValues.takeFirst();
 }
