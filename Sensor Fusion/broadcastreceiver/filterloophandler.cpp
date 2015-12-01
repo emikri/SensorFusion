@@ -1,5 +1,4 @@
 #include <QThread>
-#include <QDebug>
 #include <QTimer>
 #include "filterloophandler.h"
 #include "sensorvalues.h"
@@ -15,5 +14,4 @@ filterLoopHandler::filterLoopHandler(SensorValues &sv, QObject *parent) : QObjec
 
 void filterLoopHandler::run(){
     accX = sv.getSensors()[0].getSensorValues()[0];
-    qDebug()<<QString::number(accX);
 }
