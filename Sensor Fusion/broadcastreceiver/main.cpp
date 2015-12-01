@@ -42,7 +42,6 @@
 
 #include "receiver.h"
 #include "sensorvalues.h"
-#include "madgwickahrscplusplus.h"
 
 int main(int argc, char *argv[])
 {
