@@ -42,43 +42,12 @@
 
 #include "receiver.h"
 #include "sensorvalues.h"
-#include "kalman.h"
-#include "qdebug.h"
-#include "staticmethods.h"
-
-
-//using namespace StaticMethods;
 
 int main(int argc, char *argv[])
 {
     SensorValues sv;
     QApplication app(argc, argv);
     Receiver receiver(sv);
-
-
-    // make an accelerometer angle from its reading
-    float accX = sv.getSensors()[0].getSensorValues()[0];
-    float accY = sv.getSensors()[0].getSensorValues()[1];
-    float accZ = sv.getSensors()[0].getSensorValues()[2];
-    QList<float> accAngles = StaticMethods::getAngleFromVectorDegree(accX,accY,accZ);
-
-    // convert gyro angles' rates reading from radian to degree
-    float gyrX = StaticMethods::radianToDegree(sv.getSensors()[1].getSensorValues()[0]);
-    float gyrY = StaticMethods::radianToDegree(sv.getSensors()[1].getSensorValues()[1]);
-    float gyrZ = StaticMethods::radianToDegree(sv.getSensors()[1].getSensorValues()[2]);
-    QList<float> gyroAngleRates;
-    gyroAngleRates.append(gyrX);
-    gyroAngleRates.append(gyrY);
-    gyroAngleRates.append(gyrZ);
-
-
-    Kalman kFilter;
-
-    Sensor& s = sv.getSensors()[1];
-    qDebug() <<  "the sensor first type is: " + sv.getSensors()[1].sensorType;
-    //qDebug() << "the value for gyro x: " + QString::number(gyrX);
-    //qDebug() << "the accx angle is: " + QString::number(kFilter.getAngle(accAngles[0],gyroAngleRates[0],2));
-
 
     return app.exec();
 }
