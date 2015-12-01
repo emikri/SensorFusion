@@ -39,14 +39,17 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <QThread>
 
 #include "receiver.h"
 #include "sensorvalues.h"
+#include "filterloophandler.h"
 
 int main(int argc, char *argv[])
 {
-    SensorValues sv;
     QApplication app(argc, argv);
+    SensorValues sv;
     Receiver receiver(sv);
+    filterLoopHandler flh(sv);
     return app.exec();
 }
