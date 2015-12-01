@@ -44,11 +44,7 @@
 
 #include "receiver.h"
 #include "sensorvalues.h"
-#include "kalman.h"
-#include "staticmethods.h"
 #include "filterloophandler.h"
-
-//using namespace StaticMethods;
 
 int main(int argc, char *argv[])
 {
