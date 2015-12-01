@@ -39,7 +39,6 @@
 ****************************************************************************/
 
 #include <QApplication>
-#include <QDebug>
 #include <QThread>
 
 #include "receiver.h"
