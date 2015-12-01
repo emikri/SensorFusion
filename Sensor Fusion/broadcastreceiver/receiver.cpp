@@ -42,7 +42,7 @@
 
 #include "receiver.h"
 
-Receiver::Receiver(SensorValues sv, QObject *parent)
+Receiver::Receiver(SensorValues &sv, QObject *parent)
     : QObject(parent)
 {
     sensorValues = sv;

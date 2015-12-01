@@ -48,5 +48,6 @@ int main(int argc, char *argv[])
     SensorValues sv;
     QApplication app(argc, argv);
     Receiver receiver(sv);
+
     return app.exec();
 }
