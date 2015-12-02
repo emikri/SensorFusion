@@ -44,6 +44,7 @@
 #include "receiver.h"
 #include "sensorvalues.h"
 #include "filterloophandler.h"
+#include "madgwickahrscplusplus.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,5 +52,7 @@ int main(int argc, char *argv[])
     SensorValues sv;
     Receiver receiver(sv);
     filterLoopHandler flh(sv);
+    MadgwickAHRScplusplus mad;
+    flh.addFilter(&mad);
     return app.exec();
 }

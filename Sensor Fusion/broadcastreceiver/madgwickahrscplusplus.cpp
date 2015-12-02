@@ -1,7 +1,9 @@
 #include "madgwickahrscplusplus.h"
 #include <math.h>
+#include <QList>
+#include <QDebug>
 
-#define sampleFreq	512.0f		// sample frequency in Hz
+#define sampleFreq	5.0f		// sample frequency in Hz
 #define betaDef		0.1f		// 2 * proportional gain
 
 float invSqrt(float x);
@@ -16,8 +18,9 @@ MadgwickAHRScplusplus::MadgwickAHRScplusplus()
 }
 
 // AHRS algorithm update
+int counter = 0;
 
-void MadgwickAHRScplusplus::MadgwickAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
+void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
     float recipNorm;
     float s0, s1, s2, s3;
     float qDot1, qDot2, qDot3, qDot4;
@@ -111,6 +114,7 @@ void MadgwickAHRScplusplus::MadgwickAHRSupdate(float gx, float gy, float gz, flo
     q1 *= recipNorm;
     q2 *= recipNorm;
     q3 *= recipNorm;
+    qDebug() << counter++ << "Updated to: Q0 " << q0 << " Q1 " << q1 << " Q2 " << q2 << " Q3 " << q3;
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -196,4 +200,9 @@ float invSqrt(float x) {
     y = *(float*)&i;
     y = y * (1.5f - (halfx * y * y));
     return y;
+}
+
+QList<float> getOrientation() {
+    QList<float> out;
+    return out;
 }
