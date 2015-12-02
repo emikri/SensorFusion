@@ -3,7 +3,7 @@
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
-** This file is part of the examples of the Qt Toolkit.
+** This file is part of the QtCore module of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
 ** You may use this file under the terms of the BSD license as follows:
@@ -38,35 +38,26 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QThread>
-#include <QSurfaceFormat>
+#ifndef GEOMETRYENGINE_H
+#define GEOMETRYENGINE_H
 
-#include "renderwidget.h"
-#include "receiver.h"
-#include "sensorvalues.h"
-#include "filterloophandler.h"
+#include <QOpenGLFunctions>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
 
-#include "mainwidget.h"
-
-int main(int argc, char *argv[])
+class GeometryEngine : protected QOpenGLFunctions
 {
-    QApplication app(argc, argv);
-    SensorValues sv;
-    Receiver receiver(sv);
-    filterLoopHandler flh(sv);
-    MadgwickAHRScplusplus mad;
-    flh.addFilter(&mad);
+public:
+    GeometryEngine();
+    virtual ~GeometryEngine();
 
-    // Experimental gui
+    void drawCubeGeometry(QOpenGLShaderProgram *program);
 
-    QSurfaceFormat format;
-    format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
-    MainWidget widget(mad);
-    widget.show();
+private:
+    void initCubeGeometry();
 
-    //end experimental gui
+    QOpenGLBuffer arrayBuf;
+    QOpenGLBuffer indexBuf;
+};
 
-    return app.exec();
-}
+#endif // GEOMETRYENGINE_H

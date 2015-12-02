@@ -6,11 +6,24 @@ HEADERS       = receiver.h \
     kalman.h \
     staticmethods.h \
     filterloophandler.h \
-    renderwidget.h
+    filter.h \
+    geometryengine.h \
+    mainwidget.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \
     sensor.cpp \
     kalman.cpp \
     filterloophandler.cpp \
-    renderwidget.cpp
+    filter.cpp \
+    geometryengine.cpp \
+    mainwidget.cpp
+
+RESOURCES += \
+    shaders.qrc \
+    textures.qrc
+
+DISTFILES += \
+    fshader.glsl \
+    vshader.glsl \
+    cube.png

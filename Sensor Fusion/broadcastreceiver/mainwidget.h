@@ -3,7 +3,7 @@
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
-** This file is part of the examples of the Qt Toolkit.
+** This file is part of the QtCore module of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
 ** You may use this file under the terms of the BSD license as follows:
@@ -38,35 +38,56 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QThread>
-#include <QSurfaceFormat>
+#ifndef MAINWIDGET_H
+#define MAINWIDGET_H
 
-#include "renderwidget.h"
-#include "receiver.h"
-#include "sensorvalues.h"
-#include "filterloophandler.h"
+#include "geometryengine.h"
+#include "madgwickahrscplusplus.h"
 
-#include "mainwidget.h"
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <QMatrix4x4>
+#include <QQuaternion>
+#include <QVector2D>
+#include <QBasicTimer>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLTexture>
 
-int main(int argc, char *argv[])
+class GeometryEngine;
+
+class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
-    QApplication app(argc, argv);
-    SensorValues sv;
-    Receiver receiver(sv);
-    filterLoopHandler flh(sv);
-    MadgwickAHRScplusplus mad;
-    flh.addFilter(&mad);
+    Q_OBJECT
 
-    // Experimental gui
+public:
+    explicit MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent = 0);
+    ~MainWidget();
 
-    QSurfaceFormat format;
-    format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
-    MainWidget widget(mad);
-    widget.show();
+protected:
+    void timerEvent(QTimerEvent *e) Q_DECL_OVERRIDE;
 
-    //end experimental gui
+    void initializeGL() Q_DECL_OVERRIDE;
+    void resizeGL(int w, int h) Q_DECL_OVERRIDE;
+    void paintGL() Q_DECL_OVERRIDE;
 
-    return app.exec();
-}
+    void initShaders();
+    void initTextures();
+
+private:
+    QBasicTimer timer;
+    QOpenGLShaderProgram program;
+    GeometryEngine *geometries;
+
+    QOpenGLTexture *texture;
+
+    QMatrix4x4 projection;
+
+    QVector2D mousePressPosition;
+    QVector3D rotationAxis;
+    QQuaternion rotation;
+
+    MadgwickAHRScplusplus& mad;
+
+};
+
+#endif // MAINWIDGET_H
