@@ -41,6 +41,7 @@
 #include <QApplication>
 #include <QThread>
 
+#include "renderwidget.h"
 #include "receiver.h"
 #include "sensorvalues.h"
 #include "filterloophandler.h"
@@ -51,5 +52,7 @@ int main(int argc, char *argv[])
     SensorValues sv;
     Receiver receiver(sv);
     filterLoopHandler flh(sv);
+    RenderWidget myWidget;
+    myWidget.show();
     return app.exec();
 }
