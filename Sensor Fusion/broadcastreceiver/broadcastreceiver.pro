@@ -7,7 +7,8 @@ HEADERS       = receiver.h \
     madgwickahrscplusplus.h\
     kalman.h \
     staticmethods.h \
-    filterloophandler.h
+    filterloophandler.h \
+    filter.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \
@@ -15,4 +16,5 @@ SOURCES       = receiver.cpp \
     MadgwickAHRS.c \
     madgwickahrscplusplus.cpp\
     kalman.cpp \
-    filterloophandler.cpp
+    filterloophandler.cpp \
+    filter.cpp
