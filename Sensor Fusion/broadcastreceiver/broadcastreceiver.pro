@@ -10,7 +10,8 @@ HEADERS       = receiver.h \
     filterloophandler.h \
     filter.h \
     geometryengine.h \
-    mainwidget.h
+    mainwidget.h \
+    kalman_object.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \
@@ -21,7 +22,8 @@ SOURCES       = receiver.cpp \
     filterloophandler.cpp \
     filter.cpp \
     geometryengine.cpp \
-    mainwidget.cpp
+    mainwidget.cpp \
+    kalman_object.cpp
 
 RESOURCES += \
     shaders.qrc \
