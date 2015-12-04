@@ -46,6 +46,7 @@
 #include "receiver.h"
 #include "sensorvalues.h"
 #include "filterloophandler.h"
+#include "madgwickahrscplusplus.h"
 
 #include "mainwidget.h"
 

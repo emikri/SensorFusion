@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+# Autosave from QTCreator
+*.autosave
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
