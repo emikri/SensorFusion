@@ -7,6 +7,7 @@
 #include <filter.h>
 #include <QList>
 #include "madgwickahrscplusplus.h"
+#include "kalman.h"
 
 class filterLoopHandler : public QObject
 {
@@ -15,7 +16,7 @@ class filterLoopHandler : public QObject
 public:
     filterLoopHandler(SensorValues &sv, QObject *parent = 0);
     void addFilter(MadgwickAHRScplusplus* filter);
-
+    void addKFilter(Kalman* kFilter);
 public slots:
     void run();
 
@@ -24,6 +25,7 @@ private:
     SensorValues& sv;
     QTimer *timer;
     QList<MadgwickAHRScplusplus*> filters;
+    QList<Kalman*> kFilters;
 };
 
 #endif // FILTERLOOPHANDLER_H

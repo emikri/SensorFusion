@@ -28,8 +28,16 @@ void filterLoopHandler::run(){
         filters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
     }
 
+    for (int i = 0; i < kFilters.length(); i++) {
+        kFilters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
+    }
+
 }
 
 void filterLoopHandler::addFilter(MadgwickAHRScplusplus* filter) {
     filters.append(filter);
+}
+
+void filterLoopHandler::addKFilter(Kalman* kFilter) {
+    kFilters.append(kFilter);
 }

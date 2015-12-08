@@ -40,16 +40,27 @@
 
 #include "mainwidget.h"
 #include "madgwickahrscplusplus.h"
+#include "kalman.h"
 
 #include <QMouseEvent>
 
 #include <math.h>
 
+/*
 MainWidget::MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
     texture(0),
     mad(mad)
+{
+}
+*/
+
+MainWidget::MainWidget(Kalman& kal, QWidget *parent) :
+    QOpenGLWidget(parent),
+    geometries(0),
+    texture(0),
+    kal(kal)
 {
 }
 
@@ -66,7 +77,8 @@ MainWidget::~MainWidget()
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
-    rotation = mad.getRotation();
+    //rotation = mad.getRotation();
+    rotation = kal.getRotation();
 
     // Request an update
     update();

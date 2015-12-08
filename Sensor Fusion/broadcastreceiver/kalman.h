@@ -1,6 +1,9 @@
 #ifndef KALMAN_H
 #define KALMAN_H
 
+#include <QQuaternion>
+#include <QList>
+#include "math.h"
 
 class Kalman
 {
@@ -16,6 +19,13 @@ public:
     float getRmeasure();
     float getAngle(float newAngle, float newRate, float dt);
 
+    //new added functions
+    void updateOrientation(float, float, float, float, float, float, float, float, float);
+    QQuaternion getRotation();
+    float radToDegree(float);
+    QList<float> getAngleFromVectorDegree(float, float, float, float, float, float);
+    QList<float> getAngles(QList<float>, QList<float>, float);
+    void setAngles(QList<float>);
 /*
 * private internal value for kalman filter
 */
@@ -33,6 +43,12 @@ private:
     float K[2]; // Kalman gain - This is a 2x1 vector
     float y; // Angle difference
     float S; // Estimate error
+
+    // added new attributes
+    QQuaternion orientation;
+    float ex, ey, ez;
+    float angleX, angleY, angleZ, rateX, rateY, rateZ;
+    float yX, yY, yZ;
 };
 
 #endif // KALMAN_H

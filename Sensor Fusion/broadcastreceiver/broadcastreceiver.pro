@@ -11,7 +11,8 @@ HEADERS       = receiver.h \
     filter.h \
     geometryengine.h \
     mainwidget.h \
-    kalman_object.h
+    kalman_object.h \
+    matrix_h.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \

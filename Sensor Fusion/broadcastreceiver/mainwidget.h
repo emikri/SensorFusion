@@ -43,6 +43,7 @@
 
 #include "geometryengine.h"
 #include "madgwickahrscplusplus.h"
+#include "kalman.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -60,7 +61,8 @@ class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 
 public:
-    explicit MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent = 0);
+    //explicit MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent = 0);
+    explicit MainWidget(Kalman& mad, QWidget *parent = 0);
     ~MainWidget();
 
 protected:
@@ -86,8 +88,10 @@ private:
     QVector3D rotationAxis;
     QQuaternion rotation;
 
-    MadgwickAHRScplusplus& mad;
+    //MadgwickAHRScplusplus& mad;
+    Kalman& kal;
 
 };
 
 #endif // MAINWIDGET_H
+

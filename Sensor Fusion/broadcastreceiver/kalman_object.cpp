@@ -13,9 +13,10 @@ kalman_object::kalman_object()
 void kalman_object::updateOrientation(float gx, float gy, float gz, float ax, float ay, float az)
 {
     //TODO: fix units
-    ex = Kalman::getAngle(ax, gx, 0.001f);
-    ey = Kalman::getAngle(ay, gy, 0.001f);
-    ez = Kalman::getAngle(az, gz, 0.001f);
+    Kalman kalman;
+    ex = kalman.getAngle(ax, gx, 0.001f);
+    ey = kalman.getAngle(ay, gy, 0.001f);
+    ez = kalman.getAngle(az, gz, 0.001f);
     orientation = QQuaternion::fromEulerAngles(ex, ey, ez);
 }
 
