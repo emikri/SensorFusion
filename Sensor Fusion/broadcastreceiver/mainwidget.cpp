@@ -46,7 +46,6 @@
 
 #include <math.h>
 
-/*
 MainWidget::MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
@@ -54,8 +53,8 @@ MainWidget::MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent) :
     mad(mad)
 {
 }
-*/
 
+/*
 MainWidget::MainWidget(Kalman& kal, QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
@@ -63,6 +62,7 @@ MainWidget::MainWidget(Kalman& kal, QWidget *parent) :
     kal(kal)
 {
 }
+*/
 
 MainWidget::~MainWidget()
 {
@@ -77,8 +77,8 @@ MainWidget::~MainWidget()
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
-    //rotation = mad.getRotation();
-    rotation = kal.getRotation();
+    rotation = mad.getRotation();
+    //rotation = kal.getRotation();
 
     // Request an update
     update();

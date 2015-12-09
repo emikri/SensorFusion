@@ -14,7 +14,7 @@ class filterLoopHandler : public QObject
     Q_OBJECT
 
 public:
-    filterLoopHandler(SensorValues &sv, QObject *parent = 0);
+    filterLoopHandler(SensorValues &sv, MadgwickAHRScplusplus &mad, Kalman &kal , QObject *parent = 0);
     void addFilter(MadgwickAHRScplusplus* filter);
     void addKFilter(Kalman* kFilter);
 public slots:

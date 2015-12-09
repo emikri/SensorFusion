@@ -3,10 +3,13 @@
 #include "filterloophandler.h"
 #include "sensorvalues.h"
 #include <QDebug>
+#include <QFile>
 
 
-filterLoopHandler::filterLoopHandler(SensorValues &sv, QObject *parent) : QObject(parent), sv(sv)
+filterLoopHandler::filterLoopHandler(SensorValues &sv, MadgwickAHRScplusplus &mad, Kalman &kal , QObject *parent) : QObject(parent), sv(sv)
 {
+    this->addFilter(&mad);
+    this->addKFilter(&kal);
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(run()));
     timer->start(2);
@@ -32,6 +35,18 @@ void filterLoopHandler::run(){
         kFilters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
     }
 
+    QFile file("sensorvalues.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            out << QString::number(sv.getSensors()[i].getSensorValues()[j]) + " ";
+        }
+    }
+    out << "\n";
+    file.close();
 }
 
 void filterLoopHandler::addFilter(MadgwickAHRScplusplus* filter) {

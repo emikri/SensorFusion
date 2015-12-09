@@ -3,6 +3,7 @@
 #include <QList>
 #include <QDebug>
 #include <QQuaternion>
+#include <QFile>
 
 #define sampleFreq	500.0f		// sample frequency in Hz
 #define betaDef		50.0f		// 2 * proportional gain
@@ -116,6 +117,22 @@ void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, floa
     q2 *= recipNorm;
     q3 *= recipNorm;
     qDebug() << counter++ << "Updated to: Q0 " << q0 << " Q1 " << q1 << " Q2 " << q2 << " Q3 " << q3;
+
+    //file output...
+    QList<float> angles;
+    QVector3D euler = QQuaternion(q0,q1,q2,q3).toEulerAngles();
+    angles << euler.x();
+    angles << euler.y();
+    angles << euler.z();
+
+
+    QFile file("Madgdwickangles.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
+    file.close();
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -188,6 +205,21 @@ void MadgwickAHRScplusplus::MadgwickAHRSupdateIMU(float gx, float gy, float gz, 
     q2 *= recipNorm;
     q3 *= recipNorm;
     qDebug() << counter++ << "Updated to: Q0 " << q0 << " Q1 " << q1 << " Q2 " << q2 << " Q3 " << q3;
+
+    //file output...
+    QList<float> angles;
+    QVector3D euler = QQuaternion(q0,q1,q2,q3).toEulerAngles();
+    angles << euler.x();
+    angles << euler.y();
+    angles << euler.z();
+
+    QFile file("Madgdwickangles.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
+    file.close();
 }
 
 //---------------------------------------------------------------------------------------------------

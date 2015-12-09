@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     SensorValues sv;
     Receiver receiver(sv);
-    filterLoopHandler flh(sv);
-    //MadgwickAHRScplusplus mad;
+    //filterLoopHandler flh(sv);
+    MadgwickAHRScplusplus mad;
     //flh.addFilter(&mad);
 
     Kalman kal;
@@ -65,16 +65,17 @@ int main(int argc, char *argv[])
     initialAngles.append(0);
     initialAngles.append(0);
     kal.setAngles(initialAngles);
-    flh.addKFilter(&kal);
+    //flh.addKFilter(&kal);
 
+    filterLoopHandler flh(sv, mad, kal);
     // Experimental gui
 
-    QSurfaceFormat format;
-    format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
+    //QSurfaceFormat format;
+    //format.setDepthBufferSize(24);
+    //QSurfaceFormat::setDefaultFormat(format);
     //MainWidget widget(mad);
-    MainWidget widget(kal);
-    widget.show();
+    ////MainWidget widget(kal);
+    //widget.show();
 
     //end experimental gui
 

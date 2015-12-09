@@ -13,7 +13,7 @@
  e-mail   :  kristianl@tkjelectronics.com
 */
 
-
+#include <QFile>
 #include "kalman.h"
 
     Kalman::Kalman()
@@ -177,6 +177,13 @@
 
         orientation = QQuaternion::fromEulerAngles(angles[0], angles[1], angles[2]);
 
+        QFile file("kalmanangles.txt");
+        if(!file.open(QIODevice::Append | QIODevice::Text)){
+            return;
+        }
+        QTextStream out(&file);
+        out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
+        file.close();
 
         //orientation.normalize();
         //orientation = QQuaternion(1.0f ,angles[0], angles[1], angles[2]);
