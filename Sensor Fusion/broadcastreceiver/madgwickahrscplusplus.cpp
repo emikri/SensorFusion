@@ -244,3 +244,11 @@ QList<float> getOrientation() {
 QQuaternion MadgwickAHRScplusplus::getRotation(){
     return QQuaternion(q0, q1, q2, q3);
 }
+
+void MadgwickAHRScplusplus::setAngles(QList<float> newAngles){
+    QQuaternion newQuaternion = QQuaternion::fromEulerAngles(newAngles[0], newAngles[1], newAngles[2]);
+    q0 = newQuaternion.scalar();
+    q1 = newQuaternion.x();
+    q2 = newQuaternion.y();
+    q3 = newQuaternion.z();
+}
