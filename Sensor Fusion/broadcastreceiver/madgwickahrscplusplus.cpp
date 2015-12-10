@@ -1,7 +1,6 @@
 #include "madgwickahrscplusplus.h"
 #include <math.h>
 #include <QList>
-#include <QDebug>
 #include <QQuaternion>
 
 #define sampleFreq	500.0f		// sample frequency in Hz
@@ -19,7 +18,6 @@ MadgwickAHRScplusplus::MadgwickAHRScplusplus()
 }
 
 // AHRS algorithm update
-int counter = 0;
 
 void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz) {
     float recipNorm;
@@ -115,7 +113,6 @@ void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, floa
     q1 *= recipNorm;
     q2 *= recipNorm;
     q3 *= recipNorm;
-    qDebug() << counter++ << "Updated to: Q0 " << q0 << " Q1 " << q1 << " Q2 " << q2 << " Q3 " << q3;
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -187,7 +184,6 @@ void MadgwickAHRScplusplus::MadgwickAHRSupdateIMU(float gx, float gy, float gz, 
     q1 *= recipNorm;
     q2 *= recipNorm;
     q3 *= recipNorm;
-    qDebug() << counter++ << "Updated to: Q0 " << q0 << " Q1 " << q1 << " Q2 " << q2 << " Q3 " << q3;
 }
 
 //---------------------------------------------------------------------------------------------------
