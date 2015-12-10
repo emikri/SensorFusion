@@ -4,6 +4,9 @@
 #include <QObject>
 #include "sensorvalues.h"
 #include <QTimer>
+#include <filter.h>
+#include <QList>
+#include "madgwickahrscplusplus.h"
 
 class filterLoopHandler : public QObject
 {
@@ -11,6 +14,7 @@ class filterLoopHandler : public QObject
 
 public:
     filterLoopHandler(SensorValues &sv, QObject *parent = 0);
+    void addFilter(Filter* filter);
 
 public slots:
     void run();
@@ -19,6 +23,7 @@ private:
     float accX, accY, accZ;
     SensorValues& sv;
     QTimer *timer;
+    QList<Filter*> filters;
 };
 
 #endif // FILTERLOOPHANDLER_H
