@@ -4,7 +4,7 @@
 #include <QQuaternion>
 #include "filter.h"
 
-class MadgwickAHRScplusplus
+class MadgwickAHRScplusplus : public Filter
 {
 public:
     MadgwickAHRScplusplus();

@@ -25,11 +25,12 @@ void filterLoopHandler::run(){
           ;
 //    for (const int& i : v) { std::cout << i << "\n"; }
     for (int i = 0; i < filters.length(); i++) {
+        qDebug() << "well\n";
         filters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
     }
 
 }
 
-void filterLoopHandler::addFilter(MadgwickAHRScplusplus* filter) {
+void filterLoopHandler::addFilter(Filter* filter) {
     filters.append(filter);
 }
