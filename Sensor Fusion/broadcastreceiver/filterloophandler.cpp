@@ -22,7 +22,6 @@ void filterLoopHandler::run(){
           magY = sv.getSensors()[2].getSensorValues()[1],
           magZ = sv.getSensors()[2].getSensorValues()[2]
           ;
-//    for (const int& i : v) { std::cout << i << "\n"; }
     for (int i = 0; i < filters.length(); i++) {
         filters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
     }
