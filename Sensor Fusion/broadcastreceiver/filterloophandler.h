@@ -14,9 +14,8 @@ class filterLoopHandler : public QObject
     Q_OBJECT
 
 public:
-    filterLoopHandler(SensorValues &sv, MadgwickAHRScplusplus &mad, Kalman &kal , QObject *parent = 0);
-    void addFilter(MadgwickAHRScplusplus* filter);
-    void addKFilter(Kalman* kFilter);
+    filterLoopHandler(SensorValues &sv, QObject *parent = 0);
+    void addFilter(Filter* filter);
 public slots:
     void run();
 
@@ -24,8 +23,7 @@ private:
     float accX, accY, accZ;
     SensorValues& sv;
     QTimer *timer;
-    QList<MadgwickAHRScplusplus*> filters;
-    QList<Kalman*> kFilters;
+    QList<Filter*> filters;
 };
 
 #endif // FILTERLOOPHANDLER_H

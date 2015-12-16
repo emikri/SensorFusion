@@ -62,7 +62,7 @@ class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 
 public:
     //explicit MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent = 0);
-    explicit MainWidget(Kalman& mad, QWidget *parent = 0);
+    explicit MainWidget(Filter& filter, QWidget *parent = 0);
     ~MainWidget();
 
 protected:
@@ -89,7 +89,7 @@ private:
     QQuaternion rotation;
 
     //MadgwickAHRScplusplus& mad;
-    Kalman& kal;
+    Filter& filter;
 
 };
 

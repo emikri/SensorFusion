@@ -61,24 +61,29 @@ int main(int argc, char *argv[])
 
 
     Kalman kal;
-    QList<float> initialAngles;
+/*    QList<float> initialAngles;
     initialAngles.append(0);
     initialAngles.append(0);
     initialAngles.append(0);
     kal.setAngles(initialAngles);
     //flh.addKFilter(&kal);
 
-    mad.setAngles(initialAngles);
+    mad.setAngles(initialAngles);*/
 
-    filterLoopHandler flh(sv, mad, kal);
+    filterLoopHandler flh(sv);
+    flh.addFilter(&mad);
+    flh.addFilter(&kal);
     // Experimental gui
 
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
     QSurfaceFormat::setDefaultFormat(format);
     //MainWidget widget(mad);
-    MainWidget widget(kal);
-    widget.show();
+    MainWidget madgwickWidget(mad);
+    MainWidget kalmanWidget(kal);
+    madgwickWidget.show();
+    kalmanWidget.show();
+
 
     //end experimental gui
 

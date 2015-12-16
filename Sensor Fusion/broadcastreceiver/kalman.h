@@ -4,8 +4,9 @@
 #include <QQuaternion>
 #include <QList>
 #include "math.h"
+#include "filter.h"
 
-class Kalman
+class Kalman : public Filter
 {
 public:
     Kalman();

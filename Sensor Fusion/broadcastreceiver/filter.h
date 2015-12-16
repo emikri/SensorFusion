@@ -2,13 +2,15 @@
 #define FILTER_H
 
 #include <QList>
+#include <QQuaternion>
 
 class Filter
 {
 public:
     Filter();
-    virtual QList<float> getOrientation()=0;
-    virtual void updateOrientation(float, float, float,float, float, float,float, float, float)=0;
+    QList<float> getOrientation();
+    virtual void updateOrientation(float, float, float,float, float, float,float, float, float) = 0;
+    virtual QQuaternion getRotation() = 0;
 protected:
 
 };

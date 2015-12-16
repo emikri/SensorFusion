@@ -54,11 +54,11 @@ MainWidget::MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent) :
 {
 }
 */
-MainWidget::MainWidget(Kalman& kal, QWidget *parent) :
+MainWidget::MainWidget(Filter& filter, QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
     texture(0),
-    kal(kal)
+    filter(filter)
 {
 }
 
@@ -76,7 +76,7 @@ MainWidget::~MainWidget()
 void MainWidget::timerEvent(QTimerEvent *)
 {
     //rotation = mad.getRotation();
-    rotation = kal.getRotation();
+    rotation = filter.getRotation();
 
     // Request an update
     update();

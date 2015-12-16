@@ -20,7 +20,7 @@
     {
         /* We will set the variables like so, these can also be tuned by the user */
         Q_angle   = 0.001f;
-        Q_bias    = 0.1f;//0.003f;
+        Q_bias    = 0.003f;
         R_measure = 0.03f;
 
         angle = 0.0f; // Reset the angle
@@ -175,7 +175,7 @@
         //ez = kalman.getAngle(accAngle[2], radToDegree(gz), 1.0f);
         //orientation = QQuaternion::fromEulerAngles(ex, ey, ez);
 
-        orientation = QQuaternion::fromEulerAngles(angles[0], angles[1], angles[2]);
+        orientation = QQuaternion::fromEulerAngles(-angles[0], -angles[1], angles[2]);
 
         QFile file("kalmanangles.txt");
         if(!file.open(QIODevice::Append | QIODevice::Text)){
