@@ -68,6 +68,10 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
     MainWidget madgwickWidget(mad);
     MainWidget kalmanWidget(kal);
+
+    madgwickWidget.setWindowTitle(QString("Madgwick"));
+    kalmanWidget.setWindowTitle(QString("Kalman"));
+
     madgwickWidget.show();
     kalmanWidget.show();
 
