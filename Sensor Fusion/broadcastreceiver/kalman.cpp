@@ -162,18 +162,11 @@
         accAngle[1] = accAngle[1];//radToDegree(accAngle[1]);
         accAngle[2] = accAngle[2];//radToDegree(accAngle[2]);
 
-        //accAngle.append(ax);//
-        //accAngle.append(ay);
-        //accAngle.append(az);
         QList<float> gyros;
         gyros.append(radToDegree(gx));
         gyros.append(radToDegree(gy));
         gyros.append(radToDegree(gz));
         QList<float> angles = getAngles(accAngle, gyros, 100.0f);
-        //ex = kalman.getAngle(accAngle[0], radToDegree(gx), 1.0f);
-        //ey = kalman.getAngle(accAngle[1], radToDegree(gy), 1.0f);
-        //ez = kalman.getAngle(accAngle[2], radToDegree(gz), 1.0f);
-        //orientation = QQuaternion::fromEulerAngles(ex, ey, ez);
 
         orientation = QQuaternion::fromEulerAngles(-angles[0], -angles[1], angles[2]);
 
@@ -184,10 +177,6 @@
         QTextStream out(&file);
         out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
         file.close();
-
-        //orientation.normalize();
-        //orientation = QQuaternion(1.0f ,angles[0], angles[1], angles[2]);
-
     }
 
     QQuaternion Kalman::getRotation(){
@@ -209,18 +198,10 @@
 
     QList<float> Kalman::getAngleFromVectorDegree(float x, float y, float z, float xMag, float yMag, float zMag){
 
-        /*
-        //float magNorm = sqrt(xMag * xMag + yMag * yMag + zMag * zMag);
-        //float magNormed[3] = {xMag / magNorm, yMag / magNorm, zMag / magNorm};
-        //Roll   = -atan2(  yAccel ,  sqrt(sq(xAccel)+sq(zAccel)));
-        //Pitch  = atan2(  xAccel ,  sqrt(sq(yAccel)+sq(zAccel)));
-        //yaw=atan2( (-yMagnetMap*cos(Roll) + zMagnetMap*sin(Roll) ) , (xMagnetMap*cos(Pitch) + yMagnetMap*sin(Pitch)*sin(Roll)+ zMagnetMap*sin(Pitch)*cos(Roll)) ) *180/PI;
-        */
         float magNorm = sqrt(xMag * xMag + yMag * yMag + zMag * zMag);
         float magNormed[3] = {xMag / magNorm, yMag / magNorm, zMag / magNorm};
         float thetaXDeg = atan2(x,sqrt(pow(y,2) + pow(z,2)));
-        float thetaYDeg = -atan2(y,z);//float thetaYDeg = -atan2(y,z);//float thetaYDeg = radToDegree(-atan2(y,sqrt(pow(x,2) + pow(z,2))));//float thetaYDeg = atan2(y,z);//float thetaYDeg = radToDegree(atan2(y,z));//float thetaYDeg = radToDegree(-atan2(y,sqrt(pow(x,2) + pow(z,2))));//float thetaYDeg = atan2(y,z);
-        //float thetaZDeg = radToDegree(atan2(sqrt(pow(x,2) + pow(y,2)), z));//float thetaZDeg = radToDegree(atan2((-magNormed[1] * cos(thetaYDeg) + magNormed[2] * sin(thetaYDeg)), (magNormed[0] * cos(thetaXDeg) + magNormed[1] * sin(thetaXDeg) * sin(thetaYDeg) + magNormed[2] * sin(thetaXDeg) * cos(thetaYDeg))));//float thetaZDeg = atan2(sqrt(pow(x,2) + pow(y,2)), z);
+        float thetaYDeg = -atan2(y,z);
         float thetaZDeg = atan2((-magNormed[1] * cos(thetaYDeg) + magNormed[2] * sin(thetaYDeg) ) , (magNormed[0] * cos(thetaXDeg) + magNormed[1] * sin(thetaXDeg) * sin(thetaYDeg)+ magNormed[2] * sin(thetaXDeg) * cos(thetaYDeg)));
 
 
