@@ -65,7 +65,6 @@ MainWidget::~MainWidget()
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
-    //rotation = mad.getRotation();
     rotation = filter.getRotation();
 
     // Request an update
