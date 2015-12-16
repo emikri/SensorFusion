@@ -7,3 +7,6 @@ This is a student project about sensor fusion in the course Autonomous and coope
 qmake Sensor\ Fusion/broadcastreceiver/broadcastreceiver.pro
 make
 ```
+## Run
+
+`./broadcastreceiver`
