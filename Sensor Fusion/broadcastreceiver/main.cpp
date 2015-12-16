@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     MadgwickAHRScplusplus mad;
     //flh.addFilter(&mad);
 
+
     Kalman kal;
     QList<float> initialAngles;
     initialAngles.append(0);
@@ -67,15 +68,17 @@ int main(int argc, char *argv[])
     kal.setAngles(initialAngles);
     //flh.addKFilter(&kal);
 
+    mad.setAngles(initialAngles);
+
     filterLoopHandler flh(sv, mad, kal);
     // Experimental gui
 
-    //QSurfaceFormat format;
-    //format.setDepthBufferSize(24);
-    //QSurfaceFormat::setDefaultFormat(format);
+    QSurfaceFormat format;
+    format.setDepthBufferSize(24);
+    QSurfaceFormat::setDefaultFormat(format);
     //MainWidget widget(mad);
-    ////MainWidget widget(kal);
-    //widget.show();
+    MainWidget widget(kal);
+    widget.show();
 
     //end experimental gui
 

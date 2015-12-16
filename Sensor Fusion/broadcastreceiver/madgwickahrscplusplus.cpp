@@ -6,7 +6,7 @@
 #include <QFile>
 
 #define sampleFreq	500.0f		// sample frequency in Hz
-#define betaDef		50.0f		// 2 * proportional gain
+#define betaDef		20.0f		// 2 * proportional gain
 
 float invSqrt(float x);
 
@@ -120,7 +120,7 @@ void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, floa
 
     //file output...
     QList<float> angles;
-    QVector3D euler = QQuaternion(q0,q1,q2,q3).toEulerAngles();
+    QVector3D euler = QQuaternion(q0,-q1,-q2,q3).toEulerAngles();
     angles << euler.x();
     angles << euler.y();
     angles << euler.z();
@@ -242,7 +242,7 @@ QList<float> getOrientation() {
 }
 
 QQuaternion MadgwickAHRScplusplus::getRotation(){
-    return QQuaternion(q0, q1, q2, q3);
+    return QQuaternion(q0, -q1, -q2, q3);
 }
 
 void MadgwickAHRScplusplus::setAngles(QList<float> newAngles){

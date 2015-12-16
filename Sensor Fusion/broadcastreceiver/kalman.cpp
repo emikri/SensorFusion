@@ -20,7 +20,7 @@
     {
         /* We will set the variables like so, these can also be tuned by the user */
         Q_angle   = 0.001f;
-        Q_bias    = 0.003f;
+        Q_bias    = 0.1f;//0.003f;
         R_measure = 0.03f;
 
         angle = 0.0f; // Reset the angle
@@ -198,22 +198,37 @@
 
     float Kalman::radToDegree(float rad){
 
+        if (isnan(rad)){
+
+            rad = 0;
+
+        }
         return rad * 180 / M_PI;
 
     }
 
     QList<float> Kalman::getAngleFromVectorDegree(float x, float y, float z, float xMag, float yMag, float zMag){
 
+        /*
         //float magNorm = sqrt(xMag * xMag + yMag * yMag + zMag * zMag);
         //float magNormed[3] = {xMag / magNorm, yMag / magNorm, zMag / magNorm};
-        float thetaXDeg = radToDegree(atan2(x,sqrt(pow(y,2) + pow(z,2))));
-        float thetaYDeg = radToDegree(atan2(y,z));//float thetaYDeg = radToDegree(-atan2(y,sqrt(pow(x,2) + pow(z,2))));//float thetaYDeg = atan2(y,z);
-        float thetaZDeg = radToDegree(atan2(sqrt(pow(x,2) + pow(y,2)), z));//float thetaZDeg = radToDegree(atan2((-magNormed[1] * cos(thetaYDeg) + magNormed[2] * sin(thetaYDeg)), (magNormed[0] * cos(thetaXDeg) + magNormed[1] * sin(thetaXDeg) * sin(thetaYDeg) + magNormed[2] * sin(thetaXDeg) * cos(thetaYDeg))));//float thetaZDeg = atan2(sqrt(pow(x,2) + pow(y,2)), z);
+        //Roll   = -atan2(  yAccel ,  sqrt(sq(xAccel)+sq(zAccel)));
+        //Pitch  = atan2(  xAccel ,  sqrt(sq(yAccel)+sq(zAccel)));
+        //yaw=atan2( (-yMagnetMap*cos(Roll) + zMagnetMap*sin(Roll) ) , (xMagnetMap*cos(Pitch) + yMagnetMap*sin(Pitch)*sin(Roll)+ zMagnetMap*sin(Pitch)*cos(Roll)) ) *180/PI;
+        */
+        float magNorm = sqrt(xMag * xMag + yMag * yMag + zMag * zMag);
+        float magNormed[3] = {xMag / magNorm, yMag / magNorm, zMag / magNorm};
+        float thetaXDeg = atan2(x,sqrt(pow(y,2) + pow(z,2)));
+        float thetaYDeg = -atan2(y,z);//float thetaYDeg = -atan2(y,z);//float thetaYDeg = radToDegree(-atan2(y,sqrt(pow(x,2) + pow(z,2))));//float thetaYDeg = atan2(y,z);//float thetaYDeg = radToDegree(atan2(y,z));//float thetaYDeg = radToDegree(-atan2(y,sqrt(pow(x,2) + pow(z,2))));//float thetaYDeg = atan2(y,z);
+        //float thetaZDeg = radToDegree(atan2(sqrt(pow(x,2) + pow(y,2)), z));//float thetaZDeg = radToDegree(atan2((-magNormed[1] * cos(thetaYDeg) + magNormed[2] * sin(thetaYDeg)), (magNormed[0] * cos(thetaXDeg) + magNormed[1] * sin(thetaXDeg) * sin(thetaYDeg) + magNormed[2] * sin(thetaXDeg) * cos(thetaYDeg))));//float thetaZDeg = atan2(sqrt(pow(x,2) + pow(y,2)), z);
+        float thetaZDeg = atan2((-magNormed[1] * cos(thetaYDeg) + magNormed[2] * sin(thetaYDeg) ) , (magNormed[0] * cos(thetaXDeg) + magNormed[1] * sin(thetaXDeg) * sin(thetaYDeg)+ magNormed[2] * sin(thetaXDeg) * cos(thetaYDeg)));
+
+
 
         QList<float> angleDeg;
-        angleDeg.append(thetaXDeg);
-        angleDeg.append(thetaYDeg);
-        angleDeg.append(thetaZDeg);
+        angleDeg.append(radToDegree(thetaXDeg));
+        angleDeg.append(radToDegree(thetaYDeg));
+        angleDeg.append(radToDegree(thetaZDeg));
         return angleDeg;
 
     }
