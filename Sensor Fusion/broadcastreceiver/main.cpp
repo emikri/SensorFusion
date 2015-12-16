@@ -41,13 +41,11 @@
 #include <QApplication>
 #include <QThread>
 #include <QSurfaceFormat>
-
 #include "renderwidget.h"
 #include "receiver.h"
 #include "sensorvalues.h"
 #include "filterloophandler.h"
 #include "madgwickahrscplusplus.h"
-
 #include "mainwidget.h"
 
 int main(int argc, char *argv[])
@@ -55,37 +53,23 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     SensorValues sv;
     Receiver receiver(sv);
-    //filterLoopHandler flh(sv);
+
+    // Filters
     MadgwickAHRScplusplus mad;
-    //flh.addFilter(&mad);
-
-
     Kalman kal;
-/*    QList<float> initialAngles;
-    initialAngles.append(0);
-    initialAngles.append(0);
-    initialAngles.append(0);
-    kal.setAngles(initialAngles);
-    //flh.addKFilter(&kal);
-
-    mad.setAngles(initialAngles);*/
 
     filterLoopHandler flh(sv);
     flh.addFilter(&mad);
     flh.addFilter(&kal);
-    // Experimental gui
 
+    // GUI
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
     QSurfaceFormat::setDefaultFormat(format);
-    //MainWidget widget(mad);
     MainWidget madgwickWidget(mad);
     MainWidget kalmanWidget(kal);
     madgwickWidget.show();
     kalmanWidget.show();
-
-
-    //end experimental gui
 
     return app.exec();
 }
