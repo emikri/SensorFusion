@@ -3,7 +3,7 @@
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
-** This file is part of the examples of the Qt Toolkit.
+** This file is part of the QtCore module of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
 ** You may use this file under the terms of the BSD license as follows:
@@ -38,42 +38,57 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QThread>
-#include <QSurfaceFormat>
-#include "renderwidget.h"
-#include "receiver.h"
-#include "sensorvalues.h"
-#include "filterloophandler.h"
+#ifndef MAINWIDGET_H
+#define MAINWIDGET_H
+
+#include "geometryengine.h"
 #include "madgwickahrscplusplus.h"
-#include "mainwidget.h"
+#include "kalman.h"
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <QMatrix4x4>
+#include <QQuaternion>
+#include <QVector2D>
+#include <QBasicTimer>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLTexture>
 
-int main(int argc, char *argv[])
+class GeometryEngine;
+
+class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
-    QApplication app(argc, argv);
-    SensorValues sv;
-    Receiver receiver(sv);
+    Q_OBJECT
 
-    // Filters
-    MadgwickAHRScplusplus mad;
-    Kalman kal;
+public:
+    explicit MainWidget(Filter& filter, QWidget *parent = 0);
+    ~MainWidget();
 
-    filterLoopHandler flh(sv);
-    flh.addFilter(&mad);
-    flh.addFilter(&kal);
+protected:
+    void timerEvent(QTimerEvent *e) Q_DECL_OVERRIDE;
 
-    // GUI
-    QSurfaceFormat format;
-    format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
-    MainWidget madgwickWidget(mad);
-    MainWidget kalmanWidget(kal);
+    void initializeGL() Q_DECL_OVERRIDE;
+    void resizeGL(int w, int h) Q_DECL_OVERRIDE;
+    void paintGL() Q_DECL_OVERRIDE;
 
-    madgwickWidget.setWindowTitle(QString("Madgwick"));
-    kalmanWidget.setWindowTitle(QString("Kalman"));
+    void initShaders();
+    void initTextures();
 
-    madgwickWidget.show();
-    kalmanWidget.show();
+private:
+    QBasicTimer timer;
+    QOpenGLShaderProgram program;
+    GeometryEngine *geometries;
 
-    return app.exec();
-}
+    QOpenGLTexture *texture;
+
+    QMatrix4x4 projection;
+
+    QVector2D mousePressPosition;
+    QVector3D rotationAxis;
+    QQuaternion rotation;
+
+    Filter& filter;
+
+};
+
+#endif // MAINWIDGET_H
+

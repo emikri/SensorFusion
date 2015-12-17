@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+# Autosave from QTCreator
+*.autosave
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -21,6 +24,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+build-*/
 
 # Visual Studo 2015 cache/options directory
 .vs/

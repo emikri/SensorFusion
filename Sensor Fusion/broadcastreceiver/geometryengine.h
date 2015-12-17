@@ -3,7 +3,7 @@
 ** Copyright (C) 2015 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
-** This file is part of the examples of the Qt Toolkit.
+** This file is part of the QtCore module of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
 ** You may use this file under the terms of the BSD license as follows:
@@ -38,42 +38,26 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
-#include <QThread>
-#include <QSurfaceFormat>
-#include "renderwidget.h"
-#include "receiver.h"
-#include "sensorvalues.h"
-#include "filterloophandler.h"
-#include "madgwickahrscplusplus.h"
-#include "mainwidget.h"
+#ifndef GEOMETRYENGINE_H
+#define GEOMETRYENGINE_H
 
-int main(int argc, char *argv[])
+#include <QOpenGLFunctions>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
+
+class GeometryEngine : protected QOpenGLFunctions
 {
-    QApplication app(argc, argv);
-    SensorValues sv;
-    Receiver receiver(sv);
+public:
+    GeometryEngine();
+    virtual ~GeometryEngine();
 
-    // Filters
-    MadgwickAHRScplusplus mad;
-    Kalman kal;
+    void drawCubeGeometry(QOpenGLShaderProgram *program);
 
-    filterLoopHandler flh(sv);
-    flh.addFilter(&mad);
-    flh.addFilter(&kal);
+private:
+    void initCubeGeometry();
 
-    // GUI
-    QSurfaceFormat format;
-    format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
-    MainWidget madgwickWidget(mad);
-    MainWidget kalmanWidget(kal);
+    QOpenGLBuffer arrayBuf;
+    QOpenGLBuffer indexBuf;
+};
 
-    madgwickWidget.setWindowTitle(QString("Madgwick"));
-    kalmanWidget.setWindowTitle(QString("Kalman"));
-
-    madgwickWidget.show();
-    kalmanWidget.show();
-
-    return app.exec();
-}
+#endif // GEOMETRYENGINE_H
