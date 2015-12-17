@@ -3,6 +3,7 @@
 #include <QList>
 #include <QQuaternion>
 #include <QFile>
+#include <stdint.h>
 
 #define sampleFreq	500.0f		// sample frequency in Hz
 #define betaDef		20.0f		// 2 * proportional gain
