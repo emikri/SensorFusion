@@ -3,14 +3,14 @@ QT += core gui network widgets
 HEADERS       = receiver.h \
     sensorvalues.h \
     sensor.h \
-    MadgwickAHRS.h \
     madgwickahrscplusplus.h\
     kalman.h \
     staticmethods.h \
     filterloophandler.h \
     filter.h \
     geometryengine.h \
-    mainwidget.h
+    mainwidget.h \
+    MadgwickAHRS.h
 SOURCES       = receiver.cpp \
                 main.cpp \
     sensorvalues.cpp \

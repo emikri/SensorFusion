@@ -15,7 +15,6 @@ public:
     QList<float> getOrientation();
     void updateOrientation(float, float, float,float, float, float,float, float, float);
     QQuaternion getRotation();
-
 };
 
 #endif // MADGWICKAHRSCPLUSPLUS_H

@@ -40,16 +40,15 @@
 
 #include "mainwidget.h"
 #include "madgwickahrscplusplus.h"
-
+#include "kalman.h"
 #include <QMouseEvent>
-
 #include <math.h>
 
-MainWidget::MainWidget(MadgwickAHRScplusplus& mad, QWidget *parent) :
+MainWidget::MainWidget(Filter& filter, QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
     texture(0),
-    mad(mad)
+    filter(filter)
 {
 }
 
@@ -66,7 +65,7 @@ MainWidget::~MainWidget()
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
-    rotation = mad.getRotation();
+    rotation = filter.getRotation();
 
     // Request an update
     update();

@@ -2,7 +2,7 @@
 #include <QTimer>
 #include "filterloophandler.h"
 #include "sensorvalues.h"
-
+#include <QFile>
 
 filterLoopHandler::filterLoopHandler(SensorValues &sv, QObject *parent) : QObject(parent), sv(sv)
 {
@@ -26,6 +26,18 @@ void filterLoopHandler::run(){
         filters.at(i)->updateOrientation(gyrX, gyrY, gyrZ ,accX, accY, accZ, magX, magY, magZ);
     }
 
+    QFile file("sensorvalues.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            out << QString::number(sv.getSensors()[i].getSensorValues()[j]) + " ";
+        }
+    }
+    out << "\n";
+    file.close();
 }
 
 void filterLoopHandler::addFilter(Filter* filter) {

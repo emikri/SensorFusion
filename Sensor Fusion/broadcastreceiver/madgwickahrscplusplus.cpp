@@ -2,9 +2,11 @@
 #include <math.h>
 #include <QList>
 #include <QQuaternion>
+#include <QFile>
+#include <stdint.h>
 
 #define sampleFreq	500.0f		// sample frequency in Hz
-#define betaDef		0.1f		// 2 * proportional gain
+#define betaDef		20.0f		// 2 * proportional gain
 
 float invSqrt(float x);
 
@@ -113,6 +115,22 @@ void MadgwickAHRScplusplus::updateOrientation(float gx, float gy, float gz, floa
     q1 *= recipNorm;
     q2 *= recipNorm;
     q3 *= recipNorm;
+
+    //file output...
+    QList<float> angles;
+    QVector3D euler = QQuaternion(q0,-q1,-q2,q3).toEulerAngles();
+    angles << euler.x();
+    angles << euler.y();
+    angles << euler.z();
+
+
+    QFile file("Madgdwickangles.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
+    file.close();
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -184,6 +202,21 @@ void MadgwickAHRScplusplus::MadgwickAHRSupdateIMU(float gx, float gy, float gz, 
     q1 *= recipNorm;
     q2 *= recipNorm;
     q3 *= recipNorm;
+
+    //file output...
+    QList<float> angles;
+    QVector3D euler = QQuaternion(q0,q1,q2,q3).toEulerAngles();
+    angles << euler.x();
+    angles << euler.y();
+    angles << euler.z();
+
+    QFile file("Madgdwickangles.txt");
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return;
+    }
+    QTextStream out(&file);
+    out << QString::number(angles[0]) + " " + QString::number(angles[1]) + " " + QString::number(angles[2]) +"\n";
+    file.close();
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -193,7 +226,7 @@ void MadgwickAHRScplusplus::MadgwickAHRSupdateIMU(float gx, float gy, float gz, 
 float invSqrt(float x) {
     float halfx = 0.5f * x;
     float y = x;
-    long i = *(long*)&y;
+    int32_t i = *(int32_t*)&y;
     i = 0x5f3759df - (i>>1);
     y = *(float*)&i;
     y = y * (1.5f - (halfx * y * y));
@@ -206,5 +239,5 @@ QList<float> getOrientation() {
 }
 
 QQuaternion MadgwickAHRScplusplus::getRotation(){
-    return QQuaternion(q0, q1, q2, q3);
+    return QQuaternion(q0, -q1, -q2, q3);
 }
